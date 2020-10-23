@@ -1,37 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Main from './Main'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavbar from './components/MyNavbar';
-import User from './components/User'
+import Main from './Main'
 
-function App() {
-  return (
-    <div className="App">
-      <MyNavbar/>
-      <Main/>
+class App extends Component {
+  render() {
+   
 
-
-
-      {/* <Router history={history}>
-                <Route exact path='/' component={HomePage}/>
-                <Route
-                    exact
-                    path='/ProfilePae'
-                    render={props => <CreateTask {...props} user={user}/>}/>
-                <Route
-                    exact
-                    path='/profile'
-                    render={props => <MyProfile {...props} user={user} component={MyProfile}/>}/>
-                <Route exact path='/cards' render={props => <Cards {...props} user={user}/>}/>
-                <Route
-                    exact
-                    path='/EditProfile'
-                    render={props => <EditProfile {...props} user={user} component={EditProfile}/>}/>
-            </Router> */}
-    </div>
-
-  );
+    return (
+      <div className="App">
+        <header className="App-header">
+          <MyNavbar/>
+          <Main/>
+        </header>
+      </div>
+    );
+  }
 }
 
-export default App;
+
+
+export default App

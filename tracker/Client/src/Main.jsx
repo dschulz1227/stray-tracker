@@ -1,7 +1,7 @@
 import React from 'react'
 import LandingPage from './components/LandingPage'
 
-function main() {
+function Main() {
     return (
         <div>
             <LandingPage/>
@@ -9,4 +9,4 @@ function main() {
     )
 }
 
-export default main
+export default Main
