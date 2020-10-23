@@ -3,7 +3,7 @@ import './App.css';
 import Main from './Main'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavbar from './components/MyNavbar';
-
+import User from './components/User'
 
 function App() {
   return (

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dschulz1227/stray-tracker/issues"
   },
-  "homepage": "https://github.com/dschulz1227/stray-tracker#readme"
+  "homepage": "https://github.com/dschulz1227/stray-tracker#readme",
+  "dependencies": {
+    "firebase": "^7.24.0"
+  }
 }
