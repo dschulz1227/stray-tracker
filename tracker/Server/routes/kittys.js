@@ -1,5 +1,6 @@
 const {Kitty, validate} = require('../models/kitty');
 const express = require('express');
+const auth = require('../middleware/auth')
 const router = express.Router();
 
 //Get all cats
@@ -28,7 +29,7 @@ router.get('/:id', async (req, res) => { try {
 
 
 
-//add user
+//add kitty
 router.post('/', async(req, res) => {
     try {
         const {error} = validate(req.body);
