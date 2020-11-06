@@ -1,5 +1,7 @@
 const {User, validate} = require('../models/user');
 const bcrypt = require('bcrypt');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
@@ -47,8 +49,18 @@ router.post('/', async(req, res) => {
             password: await bcrypt.hash(req.body.password, salt),});
 
         await user.save();
-        return res.send({ _id: user._id, firstName: user.firstName,lastName: user.lastName, email: user.email })
-    } catch (ex) {
+        // return res.send({ _id: user._id, firstName: user.firstName,lastName: user.lastName, email: user.email })
+
+        const token = jwt.sign(
+            { _id: user._id, firstName: user.firstName },
+            config.get('jwtSecret'));
+
+        return res
+        .header('x-auth-token', token)
+        .header('access-control-expose-headers', 'x-auth-token')
+        .send({ _id: user._id, firstName: user.firstName, email: user.email });
+
+    }   catch (ex) {
         return res
             .status(500)
             .send(`Internal Server Error: ${ex}`);
