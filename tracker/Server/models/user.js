@@ -9,12 +9,13 @@ const userSchema = new mongoose.Schema({
     lastName: {type: String, required: true},
     email: {type: String, reuired: true},
     password: {type: String, required: true, minlength: 5, maxlength: 100},
+    isAdmin: { type: Boolean, default: false },
     dateModified: {type: Date, default: Date.now}
 });
 
 
 userSchema.methods.generateAuthToken = function () {
-    return jwt.sign({ _id: this._id, firstName: this.firstName }, config.get('jwtSecret'));
+    return jwt.sign({ _id: this._id, firstName: this.firstName, isAdmin: this.isAdmin }, config.get('jwtSecret'));
 };
 
 const User = mongoose.model('User', userSchema);
