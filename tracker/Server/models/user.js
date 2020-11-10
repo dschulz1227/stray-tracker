@@ -7,7 +7,9 @@ const config = require('config');
 const userSchema = new mongoose.Schema({ 
     firstName: { type: String, required: true},
     lastName: {type: String, required: true},
-    email: {type: String, reuired: true},
+    email: {type: String, required: true},
+    age: {type: Number, required: false},
+    location: {type: String, required: false},
     password: {type: String, required: true, minlength: 5, maxlength: 100},
     isAdmin: { type: Boolean, default: false },
     dateModified: {type: Date, default: Date.now}
@@ -28,6 +30,8 @@ function validateUser(user) {
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     email: Joi.string().required(),
+    age: Joi.number(),
+    location: Joi.string(),
     password: Joi.string().required().min(5).max(100)
     });
     return schema.validate(user); 

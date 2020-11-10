@@ -15,7 +15,7 @@ const LandingPage = (props) => {
         <div>
             <div style={{padding:"20px"}}>
                 <strong>WELCOME</strong>
-                <LoginForm handleLogin={props.handleLogin}/>
+                <LoginForm setCookieApp={props.setCookieApp} handleLogin={props.handleLogin}/>
                 <SignupForm handleSuccessfulAuth={props.handleSuccessfulAuth}/>
             </div>
         </div>

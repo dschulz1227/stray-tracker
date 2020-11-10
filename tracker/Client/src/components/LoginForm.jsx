@@ -1,10 +1,11 @@
 import React from 'react';
 import Axios from 'axios';
+import Button from '@material-ui/core/Button';
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
+        console.log(this.props)
         this.state = {
             email: "",
             password: ""
@@ -21,6 +22,7 @@ class LoginForm extends React.Component {
             [event.target.name]: event.target.value
         });
     }
+
     handleSubmit(event) {
         event.preventDefault();
         const {email, password} = this.state
@@ -30,53 +32,66 @@ class LoginForm extends React.Component {
             password: password
         })
             .then(response => {
-                console.log(response.data)
-                alert('You are logged in')
-                window.location.href = 'http://localhost:3000/';
+
+                this
+                    .props
+                    .setCookieApp(response.data);
+                this
+                    .props
+                    .handleLogin(event)
+
+                if (response.data.logged_in) {
+                    this
+                        .props
+                        .handleSuccessfulAuth(response.data);
+                }
             })
             .catch(error => {
-                alert("Unable to find this user!")
+                console.log("Unable to find this user!!!!!", error)
                 console.log("Oops! something went wrong, check your credentials and try again.", error);
             });
     }
     render() {
         return (
-           
-                <card className="input" onSubmit={this.handleSubmit}>
-                    <div id="loginTitle">
-                        <strong>Log In</strong>
-                    </div>
-                        <input
-                            type="text"
-                            name="email"
-                            placeholder="Email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                            required/>
-                    <div
-                        style={{
-                        marginTop: "15px",
-                        display:"grid",
-                        justifyContent:"center"
-                    }}>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            required/>
-                    </div>
-                    
-                        
-                           
-                                <button id="loginButtons" variant="outlined" color="primary" className="submit" onClick={this.handleSubmit} type="submit">Enter</button>
-                            
-                        
-                    
-                </card>
-          
+
+            <card className="input" onSubmit={this.handleSubmit}>
+                <div id="loginTitle">
+                    <strong>Log In</strong>
+                </div>
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    required/>
+                <div
+                    style={{
+                    marginTop: "15px",
+                    display: "grid",
+                    justifyContent: "center"
+                }}>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        required/>
+                </div>
+
+                <Button
+                    type="submit"
+                    id="loginButtons"
+                    variant="outlined"
+                    color="primary"
+                    className="submit"
+                    onClick={this.handleSubmit}
+                    >Enter</Button>
+
+            </card>
+
         )
     }
 }
-export default LoginForm;
+export default LoginForm

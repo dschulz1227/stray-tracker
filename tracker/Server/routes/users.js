@@ -47,14 +47,14 @@ router.post('/', async(req, res) => {
             password: await bcrypt.hash(req.body.password, salt),});
 
         await user.save();
-        // return res.send({ _id: user._id, firstName: user.firstName,lastName: user.lastName, email: user.email })
+        // return res.send(user)
 
         const token = user.generateAuthToken();
 
         return res
         .header('x-auth-token', token)
         .header('access-control-expose-headers', 'x-auth-token')
-        .send({ _id: user._id, firstName: user.firstName, email: user.email });
+        .send({ user });
 
     }   catch (ex) {
         return res

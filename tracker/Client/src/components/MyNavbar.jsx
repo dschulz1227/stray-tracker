@@ -11,9 +11,10 @@ function MyNavbar() {
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
       <Nav.Link href="/home">Home</Nav.Link>
+      <Nav.Link href="/report">Add Cat</Nav.Link>
+      <Nav.Link href="/map">View Map</Nav.Link>
       <Nav.Link href="/profile">Profile</Nav.Link>
       <NavDropdown title="More" id="basic-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Report Sighting</NavDropdown.Item>
         <NavDropdown.Item href="#action/3.2">Create Stray Profile</NavDropdown.Item>
         {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}
         <NavDropdown.Divider />
