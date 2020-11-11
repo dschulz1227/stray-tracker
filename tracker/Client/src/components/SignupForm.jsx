@@ -12,6 +12,8 @@ export default class SignupForm extends Component {
             lastName:"",
             email: "",
             password: "",
+            age: "",
+            location:""
             
         }
 
@@ -34,13 +36,15 @@ export default class SignupForm extends Component {
     // submit form/add user
     addUser(event) {
         event.preventDefault();
-        const {email, password, firstName, lastName} = this.state
+        const {email, password, firstName, lastName, age, location} = this.state
         Axios
             .post(`http://localhost:5000/api/users/`, {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password
+            password: password,
+            age: age,
+            location: location
             
         })
             .then(response => {
@@ -49,10 +53,11 @@ export default class SignupForm extends Component {
                     this
                         .props
                         .handleSuccessfulAuth(response.data);
+                        console.log(response.data)
                 }
             })
             .catch(error => {
-                console.log("Registration error", error);
+                console.log("A user with this email already exists", error);
             });
     }
 
@@ -105,6 +110,30 @@ export default class SignupForm extends Component {
                             name="password"
                             placeholder="New password"
                             value={this.state.password}
+                            onChange={this.handleChange}
+                            required/>
+                    </div>
+
+                    <div style={{
+                        marginTop: "3px"
+                    }}>
+                        <input
+                            type="number"
+                            name="age"
+                            placeholder="What is your age?"
+                            value={this.state.age}
+                            onChange={this.handleChange}
+                            required/>
+                    </div>
+
+                    <div style={{
+                        marginTop: "3px"
+                    }}>
+                        <input
+                            type="string"
+                            name="location"
+                            placeholder="Where do you live?"
+                            value={this.state.location}
                             onChange={this.handleChange}
                             required/>
                     </div>

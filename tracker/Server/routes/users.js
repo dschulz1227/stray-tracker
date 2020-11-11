@@ -17,7 +17,7 @@ router.get('/', async(req, res) => {
 
 
 //Get user by id
-router.get('/:id', async (req, res) => { try {
+router.get('/getUserById/:id', async (req, res) => { try {
     const user = await User.findById(req.params.id);
         if (!user)
             return res.status(400).send(`The user with id "${req.params.id}" does not exist.`);
@@ -44,7 +44,9 @@ router.post('/', async(req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName, 
             email: req.body.email,
-            password: await bcrypt.hash(req.body.password, salt),});
+            password: await bcrypt.hash(req.body.password, salt),
+            age:req.body.age,
+            location: req.body.location});
 
         await user.save();
         // return res.send(user)
@@ -54,7 +56,7 @@ router.post('/', async(req, res) => {
         return res
         .header('x-auth-token', token)
         .header('access-control-expose-headers', 'x-auth-token')
-        .send({ user });
+        .send(user);
 
     }   catch (ex) {
         return res
@@ -72,7 +74,10 @@ router.put('/:id', async (req, res) => { try {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password },
+        password: req.body.password ,
+        age:req.body.age,
+        location: req.body.location
+        },
 
           { new: true }
         );

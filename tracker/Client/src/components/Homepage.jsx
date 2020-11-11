@@ -21,12 +21,6 @@ const Homepage = props => {
                     {/* <img className="card-img-top" src={props.userInfo.profileImage} alt="Card image cap" style={{ width: "80px" }} /> */}
                     <div className="card-body">
                         <h5>This is {props.userInfo.firstName}'s Homepage</h5>
-                        <p className="card-text">{props.userInfo.firstName} {props.userInfo.lastName}</p>
-                        <p className="card-text">{props.userInfo.email}</p>
-                        <a href="/profile">
-                            <button className="btn-danger btn">View Profile</button>
-                        </a>
-
                     </div>
                 </div>
             </div>

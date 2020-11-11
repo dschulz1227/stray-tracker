@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const kittySchema = new mongoose.Schema({ 
+    userId: {type: String, required: true},
     nickName: { type: String, required: true},
     gender: {type: String},
     color: {type: String, required: true},
@@ -16,6 +17,7 @@ const Kitty = mongoose.model('Kitty', kittySchema);
 
 function validateKitty(kitty) {
     const schema = Joi.object({
+        userId: Joi.string().required(),
         nickName: Joi.string().required(),
         gender: Joi.string(),
         color: Joi.string().required(),

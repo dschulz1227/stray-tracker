@@ -6,7 +6,7 @@ import LandingPage from './components/LandingPage';
 import MyNavbar from './components/MyNavbar';
 import ProfilePage from './components/ProfilePage'
 import Homepage from './components/Homepage'
-import ReportStray from './components/ReportStray'
+import AddCat from './components/AddCat'
 import ProtectedRoute from './components/ProtectedRoute'
 import MapContainer from './components/MapContainer';
 
@@ -15,8 +15,8 @@ function App() {
     //GoogleMaps
 
     const mapStyles = {
-        width: '300px',
-        height: '300px'
+        width: '100%',
+        height: '100%'
     };
 
     const cookieName = 'straytracker';
@@ -89,9 +89,16 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <MyNavbar/>
+                <button onClick={handleLogout}>Logout</button>
             </header>
 
             <Router history={history}>
+            {/* <ProtectedRoute
+                    exact
+                    path='/'
+                    user={user}
+                    component={Homepage}
+                    handleLogout={handleLogout}/> */}
                 <Route
                     exact
                     path='/'
@@ -117,7 +124,7 @@ function App() {
                     exact
                     path='/report'
                     user={user}
-                    component={ReportStray}
+                    component={AddCat}
                     handleLogout={handleLogout}/>
                 <Route exact path='/map' user={user} component={MapContainer} handleLogout={handleLogout}/>
             </Router>

@@ -23,7 +23,7 @@ router.post('/', async(req, res) => {
         return res
             .header('x-auth-token', token)
             .header('access-control-expose-headers', 'x-auth-token')
-            .send({_id: user._id, firstName: user.firstName, lastName:user.lastName, email: user.email, token: token});
+            .send(user);
 
     } catch (ex) {
         return res

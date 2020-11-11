@@ -28,7 +28,6 @@ router.get('/:id', async (req, res) => { try {
     });
 
 
-
 //add kitty
 router.post('/', async(req, res) => {
     try {
@@ -37,6 +36,7 @@ router.post('/', async(req, res) => {
             return res.status(400).send(error);
         
         const kitty = new Kitty({
+            userId: req.body.userId,
             nickName: req.body.nickName,
             gender: req.body.gender, 
             color: req.body.color,
@@ -60,6 +60,7 @@ router.put('/:id', async (req, res) => {
         if (error) return res.status(400).send(error);
     const kitty = await Kitty.findByIdAndUpdate( req.params.id,
     {
+        userId: req.body.userId,
         nickName: req.body.nickName,
         gender: req.body.gender,
         color: req.body.color,

@@ -30,8 +30,8 @@ function validateUser(user) {
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     email: Joi.string().required(),
-    age: Joi.number(),
-    location: Joi.string(),
+    age: Joi.number().required(),
+    location: Joi.string().required(),
     password: Joi.string().required().min(5).max(100)
     });
     return schema.validate(user); 
