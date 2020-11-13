@@ -9,6 +9,7 @@ import Homepage from './components/Homepage'
 import AddCat from './components/AddCat'
 import ProtectedRoute from './components/ProtectedRoute'
 import MapContainer from './components/MapContainer';
+import DisplayCats from './components/DisplayCats';
 
 function App() {
 
@@ -70,7 +71,6 @@ function App() {
 
     const handleLogout = e => {
         e.preventDefault();
-        //if user logs out, set user to false and remove cookie
         setUser(false);
         window
             .location
@@ -85,51 +85,29 @@ function App() {
 
     console.log(user)
 
+
+
+
     return (
         <div className="App">
             <header className="App-header">
-                <MyNavbar/>
-                <button onClick={handleLogout}>Logout</button>
+                <MyNavbar/><span>      <button onClick={handleLogout}>Logout</button>
+</span>
+                
             </header>
 
             <Router history={history}>
-            {/* <ProtectedRoute
-                    exact
-                    path='/'
-                    user={user}
-                    component={Homepage}
-                    handleLogout={handleLogout}/> */}
-                <Route
-                    exact
-                    path='/'
-                    handleLogin={handleLogin}
-                    render={props => <LandingPage
-                    {...props}
-                    user={user}
-                    handleLogin={handleLogin}
-                    setCookieApp={setCookieApp}/>}/>
-                <ProtectedRoute
-                    exact
-                    path='/home'
-                    user={user}
-                    component={Homepage}
-                    handleLogout={handleLogout}/> 
-                <ProtectedRoute
-                    exact
-                    path='/profile'
-                    user={user}
-                    component={ProfilePage}
-                    handleLogout={handleLogout}/> 
-                <ProtectedRoute
-                    exact
-                    path='/report'
-                    user={user}
-                    component={AddCat}
-                    handleLogout={handleLogout}/>
+            {/* <ProtectedRoute exact path='/home' user={userInfo ? user:null} component={Homepage} handleLogout={handleLogout}/> */}
+                <Route exact path='/' handleLogin={handleLogin} render={props => <LandingPage{...props} user={user} handleLogin={handleLogin} setCookieApp={setCookieApp}/>}/>
+                <ProtectedRoute exact path='/home' user={user} component={Homepage} handleLogout={handleLogout}/> 
+                <ProtectedRoute exact path='/profile' user={user} component={ProfilePage} handleLogout={handleLogout}/> 
+                <ProtectedRoute exact path='/report' user={user} component={AddCat} handleLogout={handleLogout}/>
                 <Route exact path='/map' user={user} component={MapContainer} handleLogout={handleLogout}/>
+                <Route exact path='/cats' render={props => <DisplayCats {...props} user={user}/>}/>
+
             </Router>
 
-        </div>
+        </div> 
     );
 }
 

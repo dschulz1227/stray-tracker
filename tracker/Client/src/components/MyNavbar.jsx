@@ -4,9 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function MyNavbar() {
+
+
+
     return (
         <Navbar bg="light" expand="lg">
-  <Navbar.Brand href="/">Stray Tracker</Navbar.Brand>
+  <Navbar.Brand href="/home">Stray Tracker</Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">

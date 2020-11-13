@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
-  width: '300px',
-  height: '300px'
+  width: '500px',
+  height: '500px',
+  marginLeft: '50px',
+  border: '2px',
+  borderColor:'red',
+  borderStyle:'solid',
+  display:'flex',
+  justifyContent:'center',
+  position: 'relative',
+  top: '25%',
+  left:'25%'
 };
 
 

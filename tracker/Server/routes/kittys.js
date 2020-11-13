@@ -1,4 +1,5 @@
 const {Kitty, validate} = require('../models/kitty');
+const {User} = require('../models/user');
 const express = require('express');
 const auth = require('../middleware/auth')
 const router = express.Router();
@@ -86,4 +87,22 @@ router.delete('/:id', async (req, res) => { try {
     }
     });
 
+
+
+
+//get cats by userId
+
+router.get('/getByUserId/:userId', async(req, res) => {
+    try {
+        console.log(req.params.userId);
+        const user = await Kitty.find({userId: req.params.userId});
+        if (!user) 
+            return res.send("user not found")
+        return res.send(user);
+    } catch (ex) {
+        return res
+            .status(500)
+            .send(`Internal Server Error: ${ex}`);
+    }
+});
 module.exports = router;
