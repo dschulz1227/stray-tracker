@@ -65,6 +65,27 @@ router.post('/', async(req, res) => {
     }
 });
 
+
+//select profile image
+
+router.post('/updateImage/', async (req, res) => { try {
+    // const { error } = validate(req.body);
+    //     if (error) return res.status(400).send(error);
+    const user = await User.findByIdAndUpdate( req.params._id,
+        {
+        id: req.body._id,
+        profileImage: req.body.profileImage,
+        },
+          { new: true }
+        );
+    if (!user)
+        return res.status(400).send(`The user with id "${req.params.id}" does not exist.`);
+        await user.save();
+        return res.send(user); } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`); }
+});
+
+
 //PUT REQUEST TO UPDATE USER
 router.put('/:id', async (req, res) => { try {
     const { error } = validate(req.body);
@@ -76,7 +97,9 @@ router.put('/:id', async (req, res) => { try {
         email: req.body.email,
         password: req.body.password ,
         age:req.body.age,
-        location: req.body.location
+        location: req.body.location,
+        profileImage: req.body.profileImage,
+        biography: req.body.biography
         },
 
           { new: true }
@@ -98,5 +121,12 @@ router.delete('/:id', async (req, res) => { try {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
     });
+
+//Add profile image
+
+
+
+
+
 
 module.exports = router;

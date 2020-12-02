@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     location: {type: String, required: false},
     password: {type: String, required: true, minlength: 5, maxlength: 100},
     isAdmin: { type: Boolean, default: false },
+    profileImage: { type: String },
     dateModified: {type: Date, default: Date.now}
 });
 
@@ -32,7 +33,8 @@ function validateUser(user) {
     email: Joi.string().required(),
     age: Joi.number().required(),
     location: Joi.string().required(),
-    password: Joi.string().required().min(5).max(100)
+    password: Joi.string().required().min(5).max(100),
+    profileImage: Joi.string()
     });
     return schema.validate(user); 
 }

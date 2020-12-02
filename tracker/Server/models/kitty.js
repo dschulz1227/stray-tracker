@@ -7,7 +7,9 @@ const kittySchema = new mongoose.Schema({
     gender: {type: String},
     color: {type: String, required: true},
     age: {type: Number} || {type: String},
-    dateModified: {type: Date, default: Date.now}
+    dateModified: {type: Date, default: Date.now},
+    proImage:{ type: String},
+    biography: {type: String}
 });
 
 const Kitty = mongoose.model('Kitty', kittySchema);
@@ -21,7 +23,9 @@ function validateKitty(kitty) {
         nickName: Joi.string().required(),
         gender: Joi.string(),
         color: Joi.string().required(),
-        age:  Joi.number() || Joi.string() 
+        age:  Joi.number() || Joi.string(),
+        proImage: Joi.string(),
+        biography: Joi.string() 
     });
 
     return schema.validate(kitty); 

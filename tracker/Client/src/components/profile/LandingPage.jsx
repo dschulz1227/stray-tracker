@@ -1,15 +1,11 @@
 import React from 'react';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
+import LoginForm from '../forms/LoginForm';
+import SignupForm from '../forms/SignupForm';
 
 
 
 
 const LandingPage = (props) => {
-
-    const handleSuccessfulAuth = e => {
-        e.preventDefault();
-    }
 
     return (
         <div>

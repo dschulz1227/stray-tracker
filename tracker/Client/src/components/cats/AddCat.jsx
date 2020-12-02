@@ -62,7 +62,7 @@ export default class AddCat extends Component {
             <div className="registerWrap">
                 <form >
                     <div id="loginTitle" style={{marginLeft:"55px"}}>
-                        <strong>New User</strong>
+                        <strong>New Cat</strong>
                     </div>
 
                     <div style={{
