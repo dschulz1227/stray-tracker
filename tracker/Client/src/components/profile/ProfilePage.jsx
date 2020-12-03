@@ -38,18 +38,29 @@ function ProfilePage(props) {
 
             <div className="row" style={{backgroundColor:"grey"}}>
 
-            <div className="col">
+            <div className="col" style={{textAlign:"center"}}>
                 <img  className="profileImage" src={DefaultImg} alt="Profile Photo"/>
             </div>
-                <div className="col-sm-12 col-md-2 col-lg-2" style={{borderColor:"red", borderWidth:"2px" , borderStyle:"solid", padding:"15px"}}>
-                    <h5>Last name: {props.userInfo.lastName}</h5>
-                    <h5>Age: {props.userInfo.age}</h5>
-                    <h5>Location:{props.userInfo.location}</h5>
-                    <h5>Image:{props.userInfo.profileImage}</h5>
-                    <h5>Biography:{props.userInfo.biography}</h5>
-            </div>
+                <table className="col-sm-12 col-md-2 col-lg-2" style={{maxWidth:"300px", textOverflow:"clip", borderColor:"red", marginLeft:"-100px", borderWidth:"2px" , borderStyle:"solid", paddingRight:"15px", paddingTop:"100px", display:"flex", justifyContent:"flex-start", flexDirection:"column"}}>
+                   <tr>
+                    <th>Age: </th>
+                    <td>{props.userInfo.age}</td>
+                    </tr>
+                    <tr>
+                        <th>Location: </th>
+                        <td>{props.userInfo.location}</td>
+                    </tr>
+                    <tr>
+                        <th>Biography: </th>
+                        <td>{props.userInfo.biography}</td>
+                    </tr>
+            </table>
 
-            <div className="col"></div>
+    
+            <div className="col" style={{textAlign:"center"}}>
+                <img  className="profileImage" src={DefaultImg} alt="Profile Photo"/>
+            </div>
+            
             
             </div>
            

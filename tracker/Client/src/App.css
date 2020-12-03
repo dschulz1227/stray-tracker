@@ -5,7 +5,6 @@
 }
 
 .App {
-    text-align: center;
     position: static;
     min-width: 100%;
     min-height: 100%;
@@ -67,6 +66,7 @@
   width: 300px;
   height: 300px;
   padding: 15px;
+
   
 
 }
@@ -268,6 +268,15 @@ body {
     font-size: 1.5rem;
     width: 100%;
   }
+
+  .cat-list{
+    position: relative;
+    justify-content: flex-end;
+    display: flex;
+    z-index: 10;
+    margin-right: 300px;
+    padding-bottom:25px
+  }
   
   .locate {
     position: absolute;
@@ -379,3 +388,13 @@ body {
 .cat-displayer{
   grid-template-columns: repeat(3, 200px);
 }
+
+th{
+  font-size:medium;
+  padding: 1px
+}
+
+td {
+  font-size:small
+}
+

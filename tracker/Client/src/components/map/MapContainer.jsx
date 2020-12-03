@@ -1,23 +1,13 @@
 import React from 'react';
 // import axios from 'axios'
 import {GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
+import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocomplete";
+import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox";
 import {formatRelative} from 'date-fns';
 import "@reach/combobox/styles.css";
 import MapStyles from '../map/MapStyles';
-import DisplayCats from '../cats/DisplayCats'
-
-
+import DisplayCats from '../cats/DisplayCats';
+import CatList from '../cats/CatList';
 //
 
 const googleKey = process.env.REACT_APP_API_KEY
@@ -37,37 +27,12 @@ const options = {
     zoomControl: true
 }
 
-
 //
 
 export default function MyMap(props) {
     console.log(props.user)
     const user = props.user
     console.log(user)
-
-  //   componentDidMount() {
-  //     this.getCollection('All')
-  //     console.log(this.props.user)
-  // }
-
-  //get entire collection
-
-  
-  // const useEffect = (_Id) => {
-  //     console.log(this.props.user)
-  //     console.log(this.state.cats)
-
-  //     axios
-  //         .get(`http://localhost:5000/api/kittys/getByUserId/${this.props.user._id}`)
-  //         .then(res => {
-  //             console.log('you will see me', res.data)
-  //             const cats = res.data
-  //             console.log(cats)
-  //             this.setState({cats: cats})
-  //         })
-  // }
-
-
 
     const {isLoaded, loadError} = useLoadScript({googleMapsApiKey: googleKey, libraries});
 
@@ -111,21 +76,26 @@ export default function MyMap(props) {
     if (!isLoaded) 
         return "is loading"
 
+        //Creating selectCat functionality to place chosen cat on map
+    
     return (
         <div>
-            <h1>Strays{" "}<span role="img" aria-label="cat">🐱</span>
+            <h1>Strays{" "}
+                <span role="img" aria-label="cat">🐱</span>
             </h1>
-      console.log(props.userInfo)
-      <Locate panTo={panTo} />
-      <Search panTo={panTo} />
+            <Locate panTo={panTo}/>
+            <Search panTo={panTo}/>
+            <CatList user = {user}/>
 
-            <GoogleMap 
+            <GoogleMap
+            
                 mapContainerStyle={mapContainerStyle}
-                zoom={15}
+                zoom={10}
                 center={center}
                 options={options}
                 onClick={onMapClick}
                 onLoad={onMapLoad}>
+                    
                 {markers.map((marker) => (<Marker
                     key={marker
                     .time
@@ -164,13 +134,7 @@ export default function MyMap(props) {
                             setSelected(null);
                         }}>
                             <div>
-                                {/* <h2>
-                                    <span role="img" aria-label="cat">
-                                        🐱
-                                    </span>{" "}
-                                    Alert
-                                </h2> */}
-                                <DisplayCats user={user} />
+                                <DisplayCats user={user}/>
                                 <p>Spotted {formatRelative(selected.time, new Date())}</p>
                             </div>
                         </InfoWindow>
@@ -182,80 +146,74 @@ export default function MyMap(props) {
     )
 }
 
-function Locate({ panTo }) {
-  return (
-    <button
-      className="locate"
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            panTo({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          },
-          () => null
-        );
-      }}
-    >
-      <img src="/compass.svg" alt="compass" />
-    </button>
-  );
+function Locate({panTo}) {
+    return (
+        <button
+            className="locate"
+            onClick={() => {
+            navigator
+                .geolocation
+                .getCurrentPosition((position) => {
+                    panTo({lat: position.coords.latitude, lng: position.coords.longitude});
+                }, () => null);
+        }}>
+            <img src="/compass.svg" alt="compass"/>
+        </button>
+    );
 }
 
-function Search({ panTo }) {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => 43.6532, lng: () => -79.3832 },
-      radius: 100 * 1000,
-    },
-  });
+function Search({panTo}) {
+    const {
+        ready,
+        value,
+        suggestions: {
+            status,
+            data
+        },
+        setValue,
+        clearSuggestions
+    } = usePlacesAutocomplete({
+        requestOptions: {
+            location: {
+                lat: () => 43.6532,
+                lng: () => -79.3832
+            },
+            radius: 100 * 1000
+        }
+    });
 
-  // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
 
-  const handleInput = (e) => {
-    setValue(e.target.value);
-  };
+    const handleInput = (e) => {
+        setValue(e.target.value);
+    };
 
-  const handleSelect = async (address) => {
-    setValue(address, false);
-    clearSuggestions();
+    const handleSelect = async(address) => {
+        setValue(address, false);
+        clearSuggestions();
 
-    try {
-      const results = await getGeocode({ address });
-      const { lat, lng } = await getLatLng(results[0]);
-      panTo({ lat, lng });
-    } catch (error) {
-      console.log("😱 Error: ", error);
-    }
-  };
+        try {
+            const results = await getGeocode({address});
+            const {lat, lng} = await getLatLng(results[0]);
+            panTo({lat, lng});
+        } catch (error) {
+            console.log("😱 Error: ", error);
+        }
+    };
 
-  return (
-    <div className="search">
-      <Combobox onSelect={handleSelect}>
-        <ComboboxInput
-          value={value}
-          onChange={handleInput}
-          disabled={!ready}
-          placeholder="Search your location"
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === "OK" &&
-              data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </div>
-  );
+    return (
+        <div className="search">
+            <Combobox onSelect={handleSelect}>
+                <ComboboxInput
+                    value={value}
+                    onChange={handleInput}
+                    disabled={!ready}
+                    placeholder="Search your location"/>
+                <ComboboxPopover>
+                    <ComboboxList>
+                        {status === "OK" && data.map(({id, description}) => (<ComboboxOption key={id} value={description}/>))}
+                    </ComboboxList>
+                </ComboboxPopover>
+            </Combobox>
+        </div>
+    );
 }
-
-

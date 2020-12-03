@@ -15,7 +15,6 @@ import  MyMap  from './components/map/MapContainer';
 // import AddFriend from './components/AddFriend'
 
 
-
 const App = () => {
 
     
@@ -109,10 +108,7 @@ const App = () => {
                             <Button variant="outlined">Search</Button>
                         </Form>
                     </Navbar.Collapse>
-                </Navbar>
-                            
-
-                
+                </Navbar>                
             </header>
 
             <Router history={history}>
