@@ -1,4 +1,5 @@
 import React from 'react';
+import {Jumbotron, Container} from 'react-bootstrap';
 
 // import Post from './post';
 //  import AnswerFriendRequest from './AnswerFriendRequest'; 
@@ -7,45 +8,30 @@ import React from 'react';
 const Homepage = props => {
     console.log(props.userInfo)
     return (
-        <div className="container-fluid">
-            <header className="row" style={{
-                paddingTop: "50px",
-                width:"100%",
-                border:"black 1px solid",
-                display:"flex",
-                justifyItems:"flex-start"
-            }}>
-                <div
-                    style={{
-                    width: "18rem",
-                    margin: "0 auto",
-                    paddingTop: "10px",
-                    marginBottom: "30px",
-                    borderStyle: "solid",
-                    borderWidth:"1px",
-                    borderColor:"black",
-                    height:"fit-content"
-                }}>
-                    {/* <img className="card-img-top" src={props.userInfo.profileImage} alt="Card image cap" style={{ width: "80px" }} /> */}
-                    <div className="card-body">
-                        <h3>Currently tracking {props.userInfo.firstName}'s Cats</h3>
-                    </div>
-                </div>
-            </header>
+        <div className="container">
+        <Jumbotron fluid style={{position:"relative",fontSize:"xxx-large"}}>
+            <Container>
+                Home
+            </Container>
+        </Jumbotron>
+        <Container className="row">
 
-            {/* <div className="col-lg-6 shadow-lg p-4 mb-4">
-            <Post user={props.userInfo} />
-          </div> */}
-            <div
-                className="col-lg-3"
-                style={{
-                padding: "50px"
-            }}>
-                {/* <ListFriends userInfo={props.userInfo} /> */}
-                 <div>
-               {/* <AnswerFriendRequest currentUserId={props.userInfo._id} /> */}
-            </div>
-            </div>
+        <div className="col-md-8 col-lg-8 col-sm-10" style={{height:"100vw", backgroundColor:"transparent",border:" 1px black solid", overflow:"auto", display:"flex", justifyContent:"center"}}>
+
+
+            THIS IS WHERE HOME PAGE COMPONENTS GO
+
+
+        </div>
+
+        
+        <div className="col-md-4 col-lg-4 col-sm-2" style={{border:"1px solid black"}}>
+            
+            This is where friends list will go
+            
+        </div>
+
+        </Container>
         </div>
     )
 };

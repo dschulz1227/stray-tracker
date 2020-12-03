@@ -30,10 +30,8 @@ const options = {
 //
 
 export default function MyMap(props) {
-    console.log(props.user)
     const user = props.user
-    console.log(user)
-
+    console.log(props.user)
     const {isLoaded, loadError} = useLoadScript({googleMapsApiKey: googleKey, libraries});
 
     const [markers,
@@ -80,17 +78,17 @@ export default function MyMap(props) {
     
     return (
         <div>
-            <h1>Strays{" "}
+            <h1>Strays
                 <span role="img" aria-label="cat">🐱</span>
             </h1>
             <Locate panTo={panTo}/>
-            <Search panTo={panTo}/>
-            <CatList user = {user}/>
+            <Search  panTo={panTo}/>
+            <CatList user = {user} />
 
             <GoogleMap
             
                 mapContainerStyle={mapContainerStyle}
-                zoom={10}
+                zoom={100}
                 center={center}
                 options={options}
                 onClick={onMapClick}
@@ -134,7 +132,7 @@ export default function MyMap(props) {
                             setSelected(null);
                         }}>
                             <div>
-                                <DisplayCats user={user}/>
+                                <CatList user={user}/>
                                 <p>Spotted {formatRelative(selected.time, new Date())}</p>
                             </div>
                         </InfoWindow>
@@ -201,7 +199,7 @@ function Search({panTo}) {
     };
 
     return (
-        <div className="search">
+        <div style={{display:"flex", justifyContent:"center"}}>
             <Combobox onSelect={handleSelect}>
                 <ComboboxInput
                     value={value}

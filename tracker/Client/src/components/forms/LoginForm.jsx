@@ -53,44 +53,50 @@ class LoginForm extends React.Component {
     }
     render() {
         return (
+            <div className="container-fluid" style={{padding:"0", margin:"0"}}>
 
-            <card className="input" onSubmit={this.handleSubmit}>
-                <div id="loginTitle">
-                    <strong>Log In</strong>
-                </div>
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required/>
-                <div
-                    style={{
-                    marginTop: "15px",
-                    display: "grid",
-                    justifyContent: "center"
-                }}>
+                <form className="input LoginForm" onSubmit={this.handleSubmit} style={{dispay:"flex", justifyContent:"center"}}>
+                    
+                        <strong id="loginTitle" >Log In</strong>
+                   
                     <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={this.state.password}
+                    style={{
+                        marginTop: "15px",
+                        display: "grid",
+                        justifyContent: "center"
+                    }}
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        value={this.state.email}
                         onChange={this.handleChange}
                         required/>
+                    
+                        <input
+                         style={{
+                            marginTop: "15px",
+                            display: "grid",
+                            justifyContent: "center"
+                        }}
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            required/>
+                    
+
+                    <Button
+                        type="submit"
+                        id="loginButtons"
+                        variant="outlined"
+                        color="primary"
+                        className="submit"
+                        onClick={this.handleSubmit}>Enter</Button>
+
+                </form>
                 </div>
-
-                <Button
-                    type="submit"
-                    id="loginButtons"
-                    variant="outlined"
-                    color="primary"
-                    className="submit"
-                    onClick={this.handleSubmit}
-                    >Enter</Button>
-
-            </card>
-
+            
         )
     }
 }

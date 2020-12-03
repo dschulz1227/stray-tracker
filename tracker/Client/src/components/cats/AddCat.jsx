@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
 import Button from '@material-ui/core/Button';
-
+import {Jumbotron, Container} from 'react-bootstrap';
 
 export default class AddCat extends Component {
     constructor(props) {
@@ -9,12 +9,12 @@ export default class AddCat extends Component {
 
         this.state = {
             nickName: "",
-            age:"",
+            age: "",
             color: "",
-            gender:"",
+            gender: "",
             userId: props.userInfo._id,
             activeUser: props.userInfo.firstName
-            
+
         }
 
         this.addCat = this
@@ -44,13 +44,13 @@ export default class AddCat extends Component {
             age: age,
             gender: gender,
             color: color
-            
+
         })
             .then(response => {
-                
-                    alert('Cat Added')
-                    console.log(response.data)
-                
+
+                alert('Cat Added')
+                console.log(response.data)
+
             })
             .catch(error => {
                 alert("Cat NOT Added", error);
@@ -59,15 +59,21 @@ export default class AddCat extends Component {
 
     render() {
         return (
-            <div className="registerWrap">
-                <form >
-                    <div id="loginTitle" style={{marginLeft:"55px"}}>
-                        <strong>New Cat</strong>
-                    </div>
+            <div>
+                <Jumbotron
+                    fluid
+                    style={{
+                    position: "relative",
+                    fontSize: "xx-large"
+                }}>
+                    <Container>
+                        Add New Cat
+                    </Container>
+                </Jumbotron>
 
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                <form>
+                    
+                    <div  style={{display:"flex", justifyContent:"center", flexDirection:"column"}}>
                         <input
                             type="text"
                             name="nickName"
@@ -75,20 +81,15 @@ export default class AddCat extends Component {
                             value={this.state.nickName}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-                    <div>
-                    <input
+                    
+                        <input
                             type="text"
                             name="gender"
                             placeholder="Enter the Cat's Gender"
                             value={this.state.gender}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
                         <input
                             type="number"
                             name="age"
@@ -96,11 +97,7 @@ export default class AddCat extends Component {
                             value={this.state.age}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
                         <input
                             type="string"
                             name="color"
@@ -108,14 +105,16 @@ export default class AddCat extends Component {
                             value={this.state.color}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
 
                         <span>
-                            <Button id="loginButtons" variant="outlined" color="primary" onClick={this.addCat} className="submit" type="submit">Add Cat</Button>
+                            <Button
+                                id="loginButtons"
+                                variant="outlined"
+                                color="primary"
+                                onClick={this.addCat}
+                                className="submit"
+                                type="submit">Add Cat</Button>
                         </span>
 
                     </div>

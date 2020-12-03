@@ -63,92 +63,97 @@ export default class SignupForm extends Component {
 
     render() {
         return (
-            <div className="registerWrap">
+            <div className="container-fluid">
                 <form >
-                    <div id="loginTitle" style={{marginLeft:"55px"}}>
-                        <strong>New User</strong>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
+                        <strong id="loginTitle">New User</strong>
+                    
                         <input
+                        style={{
+                            marginTop: "15px",
+                            display: "grid",
+                            justifyContent: "center"
+                        }}
                             type="text"
                             name="firstName"
                             placeholder="Enter your first name"
                             value={this.state.name}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-                    <div>
+                    
                     <input
+                    style={{
+                        marginTop: "15px",
+                        display: "grid",
+                        justifyContent: "center"
+                    }}
                             type="text"
                             name="lastName"
                             placeholder="Enter your last name"
                             value={this.state.name}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
                         <input
+                        style={{
+                            marginTop: "15px",
+                            display: "grid",
+                            justifyContent: "center"
+                        }}
                             type="text"
                             name="email"
                             placeholder="Enter your email"
                             value={this.state.email}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
                         <input
+                        style={{
+                            marginTop: "15px",
+                            display: "grid",
+                            justifyContent: "center"
+                        }}
                             type="text"
                             name="password"
                             placeholder="New password"
                             value={this.state.password}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
                         <input
+                        style={{
+                            marginTop: "15px",
+                            display: "grid",
+                            justifyContent: "center"
+                        }}
                             type="number"
                             name="age"
                             placeholder="What is your age?"
                             value={this.state.age}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                   
                         <input
+                        style={{
+                            marginTop: "15px",
+                            display: "grid",
+                            justifyContent: "center"
+                        }}
                             type="string"
                             name="location"
                             placeholder="Where do you live?"
                             value={this.state.location}
                             onChange={this.handleChange}
                             required/>
-                    </div>
-
-                    <div style={{
-                        marginTop: "3px"
-                    }}>
+                    
 
                         <span>
                             <Button id="loginButtons" variant="outlined" color="primary" onClick={this.addUser} className="submit" type="submit">Create</Button>
                         </span>
 
-                    </div>
+                    
                 </form>
-            </div>
+                </div>
         )
     }
 

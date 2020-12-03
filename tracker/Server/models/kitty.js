@@ -9,7 +9,8 @@ const kittySchema = new mongoose.Schema({
     age: {type: Number} || {type: String},
     dateModified: {type: Date, default: Date.now},
     proImage:{ type: String},
-    biography: {type: String}
+    biography: {type: String},
+    location: {type: String}
 });
 
 const Kitty = mongoose.model('Kitty', kittySchema);
@@ -24,7 +25,9 @@ function validateKitty(kitty) {
         gender: Joi.string(),
         color: Joi.string().required(),
         age:  Joi.number() || Joi.string(),
+        dateModified: Joi.date(), default: Date.now(),
         proImage: Joi.string(),
+        location: Joi.string(),
         biography: Joi.string() 
     });
 

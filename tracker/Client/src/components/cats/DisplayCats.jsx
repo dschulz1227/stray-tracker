@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Card, CardTitle} from 'reactstrap';
-import {Table, Button} from 'react-bootstrap'
+import {Table, Button} from 'react-bootstrap';
+import moment from 'moment';
 
 //css component imports
 // import Button from '@material-ui/core/Button';
@@ -95,7 +96,7 @@ export default class DisplayCats extends Component {
                                                 <th>
                                                     Date:
                                                 </th>
-                                                <td>{kitty.date}</td>
+                                                <td>{kitty.dateModified}</td>
                                             </tr>
                                             <tr>
                                                 <th>

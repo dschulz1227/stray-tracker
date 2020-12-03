@@ -13,52 +13,62 @@ export default class CatList extends Component {
         }
     }
 
+    onClickHandler = (kitty) => {
+        this.setState({ activeCat: kitty })
+        console.log(kitty)
+        return(
+            <div>
+                <card>
+                    <title>{kitty.nickName}</title>
+                </card>
+            </div>
+        )
+    }
+
     componentDidMount() {
         this.getCollection('All')
-        console.log(this.props.user)
     }
 
     //get entire collection
     getCollection = (_Id) => {
-        console.log(this.props.user)
-        console.log(this.state.cats)
 
         axios
             .get(`http://localhost:5000/api/kittys/getByUserId/${this.props.user._id}`)
             .then(res => {
-                console.log('you will see me', res.data)
                 const cats = res.data
-                console.log(cats)
                 this.setState({cats: cats})
-                console.log(this.state.cats)
-
             })
     }
 
     render() {
         return (
-            <div className="cat-list">
-            <Dropdown
-                style={{
-                justifyContent: "space-between"
-            }}>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    My Cats
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    {this
-                        .state
-                        .cats
-                        .map((kitty, index) => {
-                            return (
-                                <div key={index}>
-                                    <Dropdown.Item>{kitty.nickName}</Dropdown.Item>
-                                </div>
-                            )
-                        })}
-                </Dropdown.Menu>
-            </Dropdown>
+            <div>
+                <p style={{display:"flex", justifyContent:"center"}}>Selected Cat: {this.state.activeCat.nickName}</p>
+
+                <Dropdown
+                    style={{
+                    display: "flex",
+                    justifyContent: "center"
+                }}
+                    className="cat-list">
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        My Cats
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {this
+                            .state
+                            .cats
+                            .map((kitty, index) => {
+                                return (
+                                    <div >
+                                        <Dropdown.Item onClick={() => this.onClickHandler(kitty)}>{kitty.nickName}</Dropdown.Item>
+                                    </div>
+                                )
+                            })}
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
         )
     }
 }
+

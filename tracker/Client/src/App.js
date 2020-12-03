@@ -145,14 +145,15 @@ const App = () => {
                     user={user}
                     component={MapContainer}
                     handleLogout={handleLogout}/> */}
-                <Route
+                <ProtectedRoute
                     exact
                     path='/cats'
                     render={props => <DisplayCats {...props} user={user}/>}/>
                 <Route
                     exact
                     path='/map'
-                    render={props => <MyMap {...props} user={user}/>}/>
+                    render={props => <MyMap {...props} user={user}/>}
+                    />
                 {/* <ProtectedRoute exact path='/AddFriend' user={user} component={AddFriend} /> */}
 
             </Router>

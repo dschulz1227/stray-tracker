@@ -12,22 +12,7 @@ function ProfilePage(props) {
 
     const user = props.userInfo
     console.log(user)
-    console.log(user._id)
-    console.log(props.userInfo._id)
-
-    // let [responseData,
-    //     setResponseData] = useState('');
-
-    // getLocation = () => {
-    //     navigator
-    //         .geolocation
-    //         .getCurrentPosition(function (position) {
-    //             console.log(position)
-    //         });
-    // }
-
  
-
     return (
         <div style={{
             color: "black"
@@ -39,7 +24,7 @@ function ProfilePage(props) {
             <div className="row" style={{backgroundColor:"grey"}}>
 
             <div className="col" style={{textAlign:"center"}}>
-                <img  className="profileImage" src={DefaultImg} alt="Profile Photo"/>
+                <img  className="profileImage" src={DefaultImg} alt="Portrait"/>
             </div>
                 <table className="col-sm-12 col-md-2 col-lg-2" style={{maxWidth:"300px", textOverflow:"clip", borderColor:"red", marginLeft:"-100px", borderWidth:"2px" , borderStyle:"solid", paddingRight:"15px", paddingTop:"100px", display:"flex", justifyContent:"flex-start", flexDirection:"column"}}>
                    <tr>
@@ -58,28 +43,16 @@ function ProfilePage(props) {
 
     
             <div className="col" style={{textAlign:"center"}}>
-                <img  className="profileImage" src={DefaultImg} alt="Profile Photo"/>
+                <img  className="profileImage" src={DefaultImg} alt="Portrait"/>
             </div>
             
             
             </div>
            
-            {/* <AddImage user={user}/> */}
             <DisplayCats user={user}/>
             
 
-            {/*
-
-
-            <Button
-                variant="outlined"
-                color="primary"
-                onClick={this.clickHandler}
-                component={this.EditProfile}
-                user={this.props.user}>
-                Edit Info
-            </Button> */}
-
+            
         </div>
     )
 }
