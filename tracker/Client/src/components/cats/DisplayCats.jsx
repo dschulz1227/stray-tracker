@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Card, CardTitle} from 'reactstrap';
 import {Table, Button} from 'react-bootstrap';
-import moment from 'moment';
+// import moment from 'moment';
 
 //css component imports
 // import Button from '@material-ui/core/Button';

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Navbar ,Nav, NavDropdown, Form, FormControl } from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Router, useHistory} from "react-router-dom";
@@ -11,13 +11,14 @@ import Homepage from './components/profile/Homepage';
 import AddCat from './components/cats/AddCat';
 import ProtectedRoute from './components/profile/ProtectedRoute';
 import DisplayCats from './components/cats/DisplayCats';
-import  MyMap  from './components/map/MapContainer';
-// import AddFriend from './components/AddFriend'
-
+import MyMap from './components/map/MapContainer';
+import UploadImage from './components/UploadImage'
+// import AddFriend from './components/AddFriend' const url =
+// 'https://api.cloudinary.com/v1_1/djcngbd59/image/upload'; const preset =
+// 'atmhk5x9'
 
 const App = () => {
 
-    
     const cookieName = 'straytracker';
     const [cookies,
         setCookie,
@@ -47,6 +48,9 @@ const App = () => {
     }
 
     console.log(userInfo, 'userinfo check')
+
+    //make DB call to fetch user info with user._id 
+
     const [user,
         setUser] = useState(userInfo);
 
@@ -94,13 +98,14 @@ const App = () => {
                             <Nav.Link href="/map">View Map</Nav.Link>
                             <Nav.Link href="/report">Add Cat</Nav.Link>
                             <Nav.Link href="/profile">Profile</Nav.Link>
+                            <Nav.Link href="/UploadImage">Upload Image</Nav.Link>
                             <NavDropdown title="More" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="/AddFriend">Add Friend</NavDropdown.Item>
                                 {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}
                                 <NavDropdown.Divider/> {/* <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
                             </NavDropdown>
                         </Nav>
-                        <Button  color="secondary" onClick={handleLogout}>
+                        <Button color="secondary" onClick={handleLogout}>
                             Logout
                         </Button>
                         <Form inline>
@@ -108,7 +113,7 @@ const App = () => {
                             <Button variant="outlined">Search</Button>
                         </Form>
                     </Navbar.Collapse>
-                </Navbar>                
+                </Navbar>
             </header>
 
             <Router history={history}>
@@ -138,8 +143,7 @@ const App = () => {
                     path='/report'
                     user={user}
                     component={AddCat}
-                    handleLogout={handleLogout}/>
-                {/* <Route
+                    handleLogout={handleLogout}/> {/* <Route
                     exact
                     path='/map'
                     user={user}
@@ -149,18 +153,30 @@ const App = () => {
                     exact
                     path='/cats'
                     render={props => <DisplayCats {...props} user={user}/>}/>
+                {/* <ProtectedRoute
+                    exact
+                    path='/upload'
+                    user={user}
+                    component={MyImage}
+                    handleLogout={handleLogout}/> */}
+                {/* <ProtectedRoute
+                    exact
+                    path="/UploadImage"
+                    user={user}
+                    component={UploadImage}
+                /> */}
                 <Route
                     exact
-                    path='/map'
-                    render={props => <MyMap {...props} user={user}/>}
-                    />
-                {/* <ProtectedRoute exact path='/AddFriend' user={user} component={AddFriend} /> */}
+                    user={user}
+                    path='/UploadImage'
+                    handleLogout={handleLogout}
+                    render={props => <UploadImage {...props} user={user}/>}/>
+                <Route exact path='/map' render={props => <MyMap {...props} user={user}/>}/> {/* <ProtectedRoute exact path='/AddFriend' user={user} component={AddFriend} /> */}
 
             </Router>
 
         </div>
     );
 }
-
 
 export default App

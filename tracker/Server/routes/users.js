@@ -2,6 +2,10 @@ const {User, validate} = require('../models/user');
 const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
+const config = require('config');
+const AWS = require('aws-sdk');
+
+
 
 //Get all users
 router.get('/', async(req, res) => {
@@ -68,21 +72,54 @@ router.post('/', async(req, res) => {
 
 //select profile image
 
-router.post('/updateImage/', async (req, res) => { try {
+router.post('/updateImage/:userId', async (req, res) => { 
+    
     // const { error } = validate(req.body);
     //     if (error) return res.status(400).send(error);
-    const user = await User.findByIdAndUpdate( req.params._id,
-        {
-        id: req.body._id,
-        profileImage: req.body.profileImage,
-        },
-          { new: true }
-        );
-    if (!user)
-        return res.status(400).send(`The user with id "${req.params.id}" does not exist.`);
-        await user.save();
-        return res.send(user); } catch (ex) {
-    return res.status(500).send(`Internal Server Error: ${ex}`); }
+    //return res.send('yay i found the router')
+    
+    
+    const ID = config.AWS_S3_ID;
+    const SECRET = config.AWS_S3_SECRET;
+    const BUCKET_NAME = config.AWS_S3_BUCKET_NAME;
+    const s3 = new AWS.S3({
+        accessKeyId: ID,
+        secretAccessKey: SECRET
+    });
+
+    let sampleFile;
+    if (!req.files || Object.keys(req.files).length === 0) {
+        res.status(400).send('No files were uploaded.');
+        return;
+    }
+    sampleFile = req.files.sampleFile;
+    // Setting up S3 upload parameters
+    const params = {
+        Bucket: BUCKET_NAME,
+        Key: sampleFile.name, // File name you want to save as in S3
+        Body: req.files.sampleFile.data,
+        ACL: "public-read"
+    };
+    const fullPath = `${config.AWS_S3_URL_LINK}/${sampleFile.name}`
+    // Uploading files to the bucket and save image file path to database
+    try {
+        s3.upload(params, async function (err, data) {
+            if (err) return res.send("Error");
+            
+            const user = await User.findByIdAndUpdate( req.params.userId,
+                {
+                avatar: fullPath
+                },
+                  { new: true }
+                );
+                if(user)
+                res.status(200).send('File uploaded.');
+
+        });
+    } catch (err) {
+        return res.status(500).send(`Internal Server Error: ${err}`)
+    }
+        
 });
 
 
@@ -99,7 +136,7 @@ router.put('/:id', async (req, res) => { try {
         age:req.body.age,
         location: req.body.location,
         profileImage: req.body.profileImage,
-        biography: req.body.biography
+        bio: req.body.bio
         },
 
           { new: true }
@@ -123,6 +160,10 @@ router.delete('/:id', async (req, res) => { try {
     });
 
 //Add profile image
+
+
+//Add Bio
+
 
 
 

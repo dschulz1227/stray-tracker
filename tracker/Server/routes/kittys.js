@@ -105,4 +105,22 @@ router.get('/getByUserId/:userId', async(req, res) => {
             .send(`Internal Server Error: ${ex}`);
     }
 });
+
+
+//get by userid and cat name
+
+router.get('/getByUserId/:userId/:nickName', async(req, res) => {
+    try {
+        console.log(req.params.userId);
+        const user = await Kitty.find({userId: req.params.userId, nickName: req.params.nickName});
+        if (!user) 
+            return res.send("cat not found")
+        return res.send(user);
+    } catch (ex) {
+        return res
+            .status(500)
+            .send(`Internal Server Error: ${ex}`);
+    }
+});
+
 module.exports = router;

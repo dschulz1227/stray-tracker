@@ -13,7 +13,7 @@ export default class CatList extends Component {
         }
     }
 
-    onClickHandler = (kitty) => {
+    onClickHandler = (kitty, cats) => {
         this.setState({ activeCat: kitty })
         console.log(kitty)
         return(
@@ -29,7 +29,7 @@ export default class CatList extends Component {
         this.getCollection('All')
     }
 
-    //get entire collection
+    // get entire collection
     getCollection = (_Id) => {
 
         axios

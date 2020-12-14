@@ -2,7 +2,6 @@ import React from 'react';
 // import {EditProfile} from './EditProfile'
 import DisplayCats from '../cats/DisplayCats'
 // import Button from '@material-ui/core/Button';
-// import Axios from 'axios';
 import DefaultImg from './assets/DefaultImg.jpg'
 
 
@@ -45,6 +44,7 @@ function ProfilePage(props) {
             <div className="col" style={{textAlign:"center"}}>
                 <img  className="profileImage" src={DefaultImg} alt="Portrait"/>
             </div>
+
             
             
             </div>

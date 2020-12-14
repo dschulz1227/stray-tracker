@@ -1,12 +1,10 @@
 import React from 'react';
-// import axios from 'axios'
 import {GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
 import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocomplete";
 import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox";
 import {formatRelative} from 'date-fns';
 import "@reach/combobox/styles.css";
 import MapStyles from '../map/MapStyles';
-import DisplayCats from '../cats/DisplayCats';
 import CatList from '../cats/CatList';
 //
 
@@ -39,7 +37,10 @@ export default function MyMap(props) {
 
     const [selected,
         setSelected] = React.useState(null);
+//////////////////////////////
 
+  
+/////////////////////////////
     const onMapClick = React.useCallback((e) => {
         setMarkers((current) => [
             ...current, {
@@ -77,23 +78,23 @@ export default function MyMap(props) {
         //Creating selectCat functionality to place chosen cat on map
     
     return (
+
         <div>
             <h1>Strays
                 <span role="img" aria-label="cat">🐱</span>
             </h1>
             <Locate panTo={panTo}/>
-            <Search  panTo={panTo}/>
-            <CatList user = {user} />
+            <Search panTo={panTo}/>
+            <CatList user={user}/>
 
             <GoogleMap
-            
                 mapContainerStyle={mapContainerStyle}
                 zoom={100}
                 center={center}
                 options={options}
                 onClick={onMapClick}
                 onLoad={onMapLoad}>
-                    
+
                 {markers.map((marker) => (<Marker
                     key={marker
                     .time
@@ -132,7 +133,6 @@ export default function MyMap(props) {
                             setSelected(null);
                         }}>
                             <div>
-                                <CatList user={user}/>
                                 <p>Spotted {formatRelative(selected.time, new Date())}</p>
                             </div>
                         </InfoWindow>
@@ -180,7 +180,6 @@ function Search({panTo}) {
         }
     });
 
-
     const handleInput = (e) => {
         setValue(e.target.value);
     };
@@ -199,7 +198,11 @@ function Search({panTo}) {
     };
 
     return (
-        <div style={{display:"flex", justifyContent:"center"}}>
+        <div
+            style={{
+            display: "flex",
+            justifyContent: "center"
+        }}>
             <Combobox onSelect={handleSelect}>
                 <ComboboxInput
                     value={value}

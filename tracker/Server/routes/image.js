@@ -1,32 +1,32 @@
-
 const express = require('express');
-const Image = require('../models/imageModel');
-const ImageRouter = express.Router();
+const router = express.Router();
+// const { cloudinary } = require('../utils/cloudinary');
 
 
+router.get('/api/images', async (req, res) => {
+  const { resources } = await cloudinary.search
+      .expression('folder:dev_setups')
+      .sort_by('public_id', 'desc')
+      .max_results(30)
+      .execute();
+
+  const publicIds = resources.map((file) => file.public_id);
+  res.send(publicIds);
+});
+
+router.post('api/upload', async (req, res) => {
+  try {
+      const fileStr = req.body.data;
+      const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+          upload_preset: 'dev_setups',
+      });
+      console.log(uploadResponse);
+      res.json({ msg: 'yaya' });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ err: 'Something went wrong' });
+  }
+});
 
 
-/*
-    upload image in base64 format, thereby,
-    directly storing it in mongodb datanase
-    along with images uploaded using firebase
-    storage
-*/    
-ImageRouter.route("/upload-image")
-    .post((req, res, next) => {
-        const newImage = new Image({
-            imageName: req.body.imageName,
-            imageData: req.body.imageData
-        });
-
-        newImage.save()
-            .then((result) => {
-                res.status(200).json({
-                    success: true,
-                    document: result
-                });
-            })
-            .catch((err) => next(err));
-    });
-
-module.exports = ImageRouter;
+module.exports = router;

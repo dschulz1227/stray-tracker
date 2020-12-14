@@ -4,38 +4,28 @@ const app = express();
 const users = require('./routes/users');
 const kittys = require('./routes/kittys');
 const friends = require('./routes/friends');
-const ImageRouter = require('./routes/image');
+const image = require('./routes/image');
 const auth = require('./routes/auth')
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
-// const createError = require('http-errors');
+const fileUpload = require('express-fileupload');
 
+
+// const createError = require('http-errors');
 
 connectDB();
 
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 app.use(cors());
+app.use(fileUpload());
 app.use(express.json());
 app.use('/api/users', users);
 app.use('/api/kittys', kittys);
 app.use('/api/auth', auth);
 app.use('/api/friends', friends);
-// app.use(express.static(path.join(__dirname,'public')));
-app.use(express.static(path.join(__dirname,'/public')));
-app.get('/*',(req,res)=>{
-  res.sendfile(path.join(__dirname='/public'));
-})
-app.use('/uploads', express.static('uploads'))
-
-app.use('/image', ImageRouter)
-
+app.use('api/upload', image);
 
 
 app.use((req, res, next) => {
@@ -47,8 +37,6 @@ app.use((req, res, next) => {
   });
 
 
-
-
 app.use(logger('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -57,7 +45,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
+app.get('/*',(req,res)=>{
+  res.sendfile(path.join(__dirname='/public'));
+})
 
 
 const port = process.env.PORT || 5000;
